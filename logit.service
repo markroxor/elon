@@ -1,0 +1,8 @@
+[Unit]
+Description=Logit service
+
+[Service]
+ExecStart=~/logit.sh
+
+[Install]
+WantedBy=multi-user.target
