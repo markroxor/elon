@@ -15,7 +15,7 @@ event_types = [*config]
 event_type_time = [0] * len(event_types)
 
 start_time = datetime(2018, 9, 4, 0, 0).timestamp()
-end_time = datetime.datetime.now().timestamp()
+end_time = datetime.now().timestamp()
 
 span = end_time - start_time
 
@@ -26,7 +26,6 @@ for file_ in os.listdir("logs"):
         print("Parsing... ", file_)
 
         with open(log_dir + file_, 'rb') as f:
-
             for log in f.readlines():
                 log = str(log).split(" ")
 
@@ -34,10 +33,11 @@ for file_ in os.listdir("logs"):
                 event_type = 'other'
 
                 for event_type, event_ in config.items():
-                    if event.endswith(event_[0]):
-                        ind_ = event_types.index(event_type)
-                        event_type_time[ind_] += float(duration)/3600.
-                        break
+                    for e in event_:
+                        if e in event:
+                            ind_ = event_types.index(event_type)
+                            event_type_time[ind_] += float(duration)/3600.
+                            break
 
 print(event_types)
 print(event_type_time)
