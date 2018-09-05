@@ -1,17 +1,36 @@
+#!/usr/bin/env bash
+# Given the number of hacks I have used, this script will go rogue in around 
+# 8536125172 seconds or ~270 years.
+
 midnight=$(date -d "$today 0" +%s)
-log_file_name=$midnight"_activity.log"
+log_file=~/logit/logs/$midnight".log"
+
+test -f $log_file || touch $log_file
+echo "logging to "$log_file
 
 while true
 do
     current_time=$(date +%s)
+    last_log=$(tail -n 1 $log_file || echo "failed")
+    
+    last_time=$(echo $last_log | cut -d " " -f1)
+    last_counter=$(echo $last_log | cut -d " " -f2)
+    last_event=${last_log:$((${#last_time}+${#last_counter}+2)):1000}
+
     if [[ $(gnome-screensaver-command -q) != *"inactive"* ]]
     then
-        echo $current_time "Screen is locked" >> "~/logit/logs/"$log_file_name;
+        current_event="Screen is locked"
     else
-        echo $current_time $(xdotool getwindowfocus getwindowname) >> "~/logit/logs/"$log_file_name;
+        current_event=$(xdotool getwindowfocus getwindowname)
     fi
-    sleep 2
+
+    if [[ $current_event != $last_event ]]
+    then
+        last_counter=0
+    else
+        sed -i '$d' $log_file
+    fi
+
+    echo $current_time $(($last_counter+1)) $current_event >> $log_file;
+    sleep 1
 done
-
-$(date -d "$today 0" +%s)
-
