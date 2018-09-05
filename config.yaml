@@ -1,0 +1,8 @@
+coding:
+- 'Visual Studio Code'
+browser:
+- 'Google Chrome'
+terminal:
+- 'Tilix: Default'
+locked:
+- 'Screen is locked'
