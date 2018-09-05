@@ -1,8 +1,10 @@
-coding:
+Coding:
 - 'Visual Studio Code'
-browser:
+- 'Sublime'
+Browsing:
 - 'Google Chrome'
-terminal:
+- 'Firefox'
+Terminal:
 - 'Tilix: Default'
-locked:
+Locked:
 - 'Screen is locked'

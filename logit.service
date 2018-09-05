@@ -2,7 +2,7 @@
 Description=Logit service
 
 [Service]
-Environment="DISPLAY=:0.0"
+Environment="DISPLAY=:0"
 User=markroxor
 ExecStart=/bin/bash /opt/logit.sh
 

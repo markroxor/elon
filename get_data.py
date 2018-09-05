@@ -2,6 +2,8 @@ import yaml
 import os
 from os.path import splitext
 from datetime import datetime
+
+import numpy as np
 import matplotlib.pyplot as plt
 
 log_dir = "logs/"
@@ -13,13 +15,9 @@ event_types = [*config]
 event_type_time = [0] * len(event_types)
 
 start_time = datetime(2018, 9, 4, 0, 0).timestamp()
-end_time = datetime(2018, 9, 5, 0, 0).timestamp()
+end_time = datetime.datetime.now().timestamp()
 
 span = end_time - start_time
-
-print(start_time)
-print(end_time)
-print("")
 
 for file_ in os.listdir("logs"):
     file_name = float(splitext(file_)[0])
@@ -38,18 +36,33 @@ for file_ in os.listdir("logs"):
                 for event_type, event_ in config.items():
                     if event.endswith(event_[0]):
                         ind_ = event_types.index(event_type)
-                        event_type_time[ind_] += int(duration)
-                        # print(event_type, duration)
+                        event_type_time[ind_] += float(duration)/3600.
                         break
+
 print(event_types)
 print(event_type_time)
-labels = event_types
-sizes = event_type_time
-# explode = (0, 0.1, 0, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
 
-fig1, ax1 = plt.subplots()
-ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
-        shadow=True, startangle=90)
-ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+fig, ax = plt.subplots(figsize=(10, 5), subplot_kw=dict(aspect="equal"))
+
+data = event_type_time
+Tasks = event_types
+
+
+def func(pct, allvals):
+    absolute = pct/100.*np.sum(allvals)
+    return "{:.3f}%\n({:.3f} hrs)".format(pct, absolute)
+
+
+wedges, texts, autotexts = ax.pie(data, autopct=lambda pct: func(pct, data),
+                                  textprops=dict(color="w"))
+
+ax.legend(wedges, Tasks,
+          title="Tasks",
+          loc="center left",
+          bbox_to_anchor=(1, 0, 0.5, 1))
+
+plt.setp(autotexts, size=8, weight="bold")
+
+ax.set_title("Logs for today.")
 
 plt.show()
