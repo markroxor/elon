@@ -18,12 +18,12 @@ Configure `config.yaml` as per your preference.
 1. The applications (Google Chrome) are grouped under categories (browsing).
 2. The 'applications' should be a case-sensitive substring of the title of the application.
    Check title bar for the title. 
-3. The priorties are held in the order of appearence. Eg.
-    Wasting Time:
-    - 'YouTube'
-    Browsing:
-    - 'Google Chrome'
-    - 'Firefox'
+3. The priorties are held in the order of appearence. Eg.       
+    Wasting Time:     
+    \- 'YouTube'      
+    Browsing:       
+    \- 'Google Chrome'      
+    \- 'Firefox'      
 
 here YouTube will take precedence over the browser Google Chrome.
 
