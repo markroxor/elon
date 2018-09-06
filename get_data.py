@@ -8,21 +8,23 @@ import matplotlib.pyplot as plt
 
 log_dir = "logs/"
 
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
+
 with open("config.yaml", 'r') as config:
     config = yaml.load(config)
 
 event_types = [*config]
 event_type_time = [0] * len(event_types)
 
-start_time = datetime(2018, 9, 4, 0, 0).timestamp()
-end_time = datetime.now().timestamp()
+log_start_time = datetime(2018, 9, 4, 0, 0).timestamp()
+log_end_time = datetime.now().timestamp()
 
-span = end_time - start_time
+span = log_end_time - log_start_time
 
 for file_ in os.listdir("logs"):
     file_name = float(splitext(file_)[0])
-
-    if file_name >= start_time and file_name <= end_time:
+    if file_name >= log_start_time and file_name <= log_end_time:
         print("Parsing... ", file_)
 
         with open(log_dir + file_, 'rb') as f:
