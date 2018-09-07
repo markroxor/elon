@@ -33,3 +33,5 @@ here YouTube will take precedence over the browser Google Chrome.
 
 `bash ./logit.sh` - to start logging.        
 `python get_data.py` - to plot the pie-chart.             
+
+This project is supposed to be a bare minimum for Andrejs's [ulogme](https://github.com/karpathy/ulogme).
