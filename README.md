@@ -31,7 +31,7 @@ here YouTube will take precedence over the browser Google Chrome.
 
 
 
-`bash ./logit.sh` - to start logging.        
-`python get_data.py` - to plot the pie-chart.             
+`sudo ./firstTime.sh` - to push logit as a system service and start logging at each boot.        
+`python get_data.py --time n` - to plot the pie-chart since last `n` days. `--time` is optional.             
 
 This project is supposed to be a bare minimum for Andrejs's [ulogme](https://github.com/karpathy/ulogme).
