@@ -51,10 +51,10 @@ def main(args):
                     end_time, duration, event = log[0], log[1], " ".join(log[2:])[:-3]
                     event_type = 'other'
 
-                    for event_type, event_ in config.items():
+                    for event_type_, event_ in config.items():
                         for e in event_:
                             if e in event:
-                                ind_ = event_types.index(event_type)
+                                ind_ = event_types.index(event_type_)
                                 event_type_time[ind_] += float(duration)/3600.
                                 break
 
@@ -79,7 +79,7 @@ def main(args):
 
     plt.setp(autotexts, size=8, weight="bold")
 
-    ax.set_title("Logs for today.")
+    ax.set_title("Total time: " + str(sum(event_type_time)))
 
     plt.show()
 

@@ -23,7 +23,6 @@ do
     else
         current_event=$(xdotool getwindowfocus getwindowname)
     fi
-
     if [[ $current_event != $last_event ]]
     then
         last_counter=0

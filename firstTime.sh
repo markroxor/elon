@@ -11,19 +11,19 @@ User=$(whoami)\n
 ExecStart=/bin/bash /opt/logit.sh\n
 \n
 [Install]\n
-WantedBy=multi-user.target'\n
+WantedBy=multi-user.target'
 "
 }
 
 conf=''
 get_service_conf conf
-sudo echo $conf >/etc/systemd/system/
+sudo echo -e $conf >/etc/systemd/system/logit.service
 
 
 cp ~/logit/logit.sh /opt/
 
-sudo mkdir /var/log/logit
 chmod u+x /opt/logit.sh
 
 sudo systemctl start logit
 sudo systemctl enable logit
+sudo systemctl daemon-reload
