@@ -1,3 +1,5 @@
 .env
 .vscode/
 logs/*
+config.yaml
+logit.service

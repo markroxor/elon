@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #create systemd config
 get_service_conf()
 {
@@ -17,13 +19,5 @@ WantedBy=multi-user.target'
 
 conf=''
 get_service_conf conf
-sudo echo -e $conf >/etc/systemd/system/logit.service
-
-
-cp ~/logit/logit.sh /opt/
-
-chmod u+x /opt/logit.sh
-
-sudo systemctl start logit
-sudo systemctl enable logit
-sudo systemctl daemon-reload
+# sudo echo -e $conf >/etc/systemd/system/logit.service
+echo -e $conf >logit.service
