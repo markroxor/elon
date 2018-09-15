@@ -6,7 +6,7 @@ Log your daily routines stay productive.
 ## Installation -
 Dependencies -   
 `sudo apt-get install gnome-screensaver xdotool`    
-`pip install pyyaml matplotlib numpy`  
+`pip3 install pyyaml matplotlib numpy`  
    
 ## Clone in your home directory.
 `git clone https://github.com/markroxor/logit.git ~/`           
@@ -34,6 +34,6 @@ here YouTube will take precedence over Google Chrome.
 ## Pushing as a system service
 `bash create_service.sh` # create service _without root_    
 `sudo bash deploy_service.sh` # to push logit as a system service and start logging at each boot.        
-`python get_data.py --time n` # to plot the pie-chart since last `n` days. `--time` is optional.             
+`python3 get_data.py --time n` # to plot the pie-chart since last `n` days. `--time` is optional.             
 
 This project is supposed to be a bare minimum for Andrejs's [ulogme](https://github.com/karpathy/ulogme).
