@@ -1,3 +1,13 @@
+from flask import Flask
+from flask import render_template
+from flask import jsonify
+import csv
+
+app = Flask(__name__,
+            static_url_path='', 
+            static_folder='static',)
+
+
 import yaml
 import os
 from os.path import splitext
@@ -28,7 +38,6 @@ def main(args):
         config = yaml.load(config)
 
     event_types = [*config]
-    event_type_time = [0] * len(event_types)
 
     log_start_time = datetime.today() - timedelta(days=days)
     log_start_time = log_start_time.timestamp()
@@ -39,7 +48,10 @@ def main(args):
 
     span = log_end_time - log_start_time
 
-    for file_ in os.listdir("logs"):
+    data = []
+    data.append(["Date"] + event_types)
+    for file_ in sorted(os.listdir("logs")):
+        event_type_time = [0] * len(event_types)
         file_name = float(splitext(file_)[0])
         if file_name >= log_start_time and file_name <= log_end_time:
             print("Parsing... ", file_)
@@ -58,30 +70,16 @@ def main(args):
                                 event_type_time[ind_] += float(duration)/3600.
                                 break
 
-    fig, ax = plt.subplots(figsize=(10, 5), subplot_kw=dict(aspect="equal"))
+            data.append([str(datetime.fromtimestamp(int(file_name)).date())] + event_type_time)
 
-    data = event_type_time
-    Tasks = event_types
+    myFile = open('static/data.csv', 'w')  
+    with myFile:  
+        writer = csv.writer(myFile)
+        writer.writerows(data)
 
-
-    def func(pct, allvals):
-        absolute = pct/100.*np.sum(allvals)
-        return "{:.3f}%\n({:.3f} hrs)".format(pct, absolute)
-
-
-    wedges, texts, autotexts = ax.pie(data, autopct=lambda pct: func(pct, data),
-                                    textprops=dict(color="w"))
-
-    ax.legend(wedges, Tasks,
-            title="Tasks",
-            loc="center left",
-            bbox_to_anchor=(1, 0, 0.5, 1))
-
-    plt.setp(autotexts, size=8, weight="bold")
-
-    ax.set_title("Total time: " + str(sum(event_type_time)))
-
-    plt.show()
+@app.route('/')
+def hello(name=None):
+    return render_template('grouped_bp.html')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="An app for logging your daily routines.")
@@ -90,3 +88,4 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     main(args)
+    app.run()
