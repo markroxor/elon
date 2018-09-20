@@ -1,22 +1,18 @@
-from flask import Flask
-from flask import render_template
-from flask import jsonify
-import csv
-
-app = Flask(__name__,
-            static_url_path='', 
-            static_folder='static',)
-
-
-import yaml
 import os
 from os.path import splitext
 from datetime import datetime, timedelta
 
-import numpy as np
-import matplotlib.pyplot as plt
-
 import argparse
+
+from flask import Flask
+from flask import render_template
+
+import yaml
+import json
+
+app = Flask(__name__,
+            static_url_path='', 
+            static_folder='static',)
 
 def main(args):
     days = args.days
@@ -53,15 +49,29 @@ def main(args):
 
     span = log_end_time - log_start_time
 
-    data = []
-    data.append(["Date"] + event_types)
+    #-------------------------------------------creating chart.js objects----------------------------------#
+    bar_chart_data = {}
+    bar_chart_data["labels"] = [] #
+    chartColors = ['rgb(255, 99, 132)', 'rgb(201, 203, 207)', 'rgb(255, 159, 64)', 
+                    'rgb(255, 205, 86)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)', 'rgb(153, 102, 255)']
+
+    datasets = []
+    for i in range(len(event_types)):
+        datasets.append({})
+        datasets[i]['label'] = event_types[i]
+        datasets[i]['backgroundColor'] = chartColors[i]
+        datasets[i]['data'] = []
+    #------------------------------------------------------------------------------------------------------#
 
     event_and_duration = {}
     for file_ in sorted(os.listdir("logs")):
-        event_type_time = [0] * len(event_types)
         file_name = float(splitext(file_)[0])
+        event_type_time = [0] * len(event_types)
+
         if file_name >= log_start_time and file_name <= log_end_time:
             print("Parsing... ", file_)
+
+            bar_chart_data["labels"].append(str(datetime.fromtimestamp(int(file_name)).date()))
 
             with open(log_dir + file_, 'rb') as f:
                 for i, log in enumerate(f.readlines()):
@@ -72,7 +82,7 @@ def main(args):
                     else:
                         end_time, duration, event = log[0], log[1], " ".join(log[2:])[:-3]
                     event_type = 'Other'
-                    duration = round(float(duration)/3600., 2)
+                    duration = round(float(duration)/3600., 3)
 
                     if event in event_and_duration:
                         event_and_duration[event] += duration
@@ -91,19 +101,27 @@ def main(args):
                     ind_ = event_types.index(event_type)
                     event_type_time[ind_] += duration
 
-            data.append([str(datetime.fromtimestamp(int(file_name)).date())] + event_type_time)
+            for i, event in enumerate(event_type):
+                datasets[i]['data'].append(round(event_type_time[i], 3))
+
+    #--------------------------------------save bar_plot data as json-----------------------------
+    bar_chart_data['datasets'] = datasets
+    with open('static/data.json', 'w') as f:
+        json.dump(bar_chart_data, f)
+    #--------------------------------------------------------=------------------------------------
 
     print("Top", topn, "most time consuming jobs are -")
     for w in sorted(event_and_duration, key=event_and_duration.get, reverse=True)[:topn]:
         print (w, event_and_duration[w])
 
-    with open('static/data.csv', 'w') as f:
-        writer = csv.writer(f)
-        writer.writerows(data)
 
+#------------------------------------------Flask app----------------------------------------------
 @app.route('/')
-def hello(name=None):
-    return render_template('grouped_bp.html')
+def chart(name=None):
+    return render_template('chart.html')
+#-------------------------------------------------------------------------------------------------
+
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="An app for logging your daily routines.")
@@ -112,7 +130,6 @@ if __name__ == '__main__':
     parser.add_argument('--topn', type=int, help='Number of top time consuming jobs to print.')
 
     args = parser.parse_args()
-
 
     main(args)
     app.run()

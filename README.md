@@ -1,7 +1,7 @@
 # LogIt!
 Log your daily routines stay productive.
 
-![](https://github.com/markroxor/logit/raw/master/assets/piee.png)
+![](https://github.com/markroxor/logit/raw/master/assets/graph.jpg)
 
 ## Installation -
 Dependencies -   

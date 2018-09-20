@@ -3,5 +3,5 @@
 logs/*
 config.yaml
 logit.service
-static/data.csv
+static/data.json
 __pycache__
