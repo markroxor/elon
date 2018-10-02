@@ -9,3 +9,5 @@ chmod u+x /opt/logit.sh
 systemctl start logit
 systemctl enable logit
 systemctl daemon-reload
+
+npm install

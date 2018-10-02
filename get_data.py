@@ -1,5 +1,7 @@
 import os
 from os.path import splitext
+from subprocess import call
+
 from datetime import datetime, timedelta
 
 import argparse
@@ -10,9 +12,6 @@ from flask import render_template
 import yaml
 import json
 
-app = Flask(__name__,
-            static_url_path='', 
-            static_folder='static',)
 
 def main(args):
     days = args.days
@@ -115,14 +114,6 @@ def main(args):
         print (w, event_and_duration[w])
 
 
-#------------------------------------------Flask app----------------------------------------------
-@app.route('/')
-def chart(name=None):
-    return render_template('chart.html')
-#-------------------------------------------------------------------------------------------------
-
-
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="An app for logging your daily routines.")
 
@@ -132,4 +123,4 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     main(args)
-    app.run()
+    call(["npm", "start"])

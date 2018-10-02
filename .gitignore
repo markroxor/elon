@@ -5,3 +5,4 @@ config.yaml
 logit.service
 static/data.json
 __pycache__
+node_modules

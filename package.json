@@ -1,0 +1,20 @@
+{
+  "name": "logit",
+  "version": "0.0.1",
+  "description": "Logs your daily routines",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/markroxor/logit",
+  "keywords": [
+    "productivity",
+    "logging",
+    "routines"
+  ],
+  "author": "markroxor",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^3.0.0"
+  }
+}
