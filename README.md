@@ -7,6 +7,7 @@ Log your daily routines stay productive.
 Dependencies -   
 `sudo apt-get install gnome-screensaver xdotool`    
 `pip3 install pyyaml matplotlib numpy`  
+`sudo apt-get install -y nodejs`  # installs npm
    
 ## Clone in your home directory.
 `git clone https://github.com/markroxor/logit.git ~/`           
@@ -29,15 +30,13 @@ Configure `config.yaml` as per your preference.
 here YouTube will take precedence over Google Chrome.
 
 
-
-
-`sudo ./firstTime.sh` - to push logit as a system service and start logging at each boot.        
-`python get_data.py --time n` - to plot the stacked bar plot since last `n` days. `--time` is optional.             
-Visit - [http://127.0.0.1:5000/](http://127.0.0.1:5000/)  
-
 ## Pushing as a system service
 `bash create_service.sh` # create service _without root_    
 `sudo bash deploy_service.sh` # to push logit as a system service and start logging at each boot.        
 `python3 get_data.py --time n` # to plot the pie-chart since last `n` days. `--time` is optional.             
 
-This project is supposed to be a bare minimum for Andrejs's [ulogme](https://github.com/karpathy/ulogme).
+
+
+# Deploy electron app
+
+`python get_data.py --days 10` # to plot the stacked bar plot since last `10` days (`--days` is optional) in an electron app.             
