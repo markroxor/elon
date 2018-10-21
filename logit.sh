@@ -2,14 +2,15 @@
 # Given the number of hacks I have used, this script will go rogue in around 
 # 8536125172 seconds or ~270 years.
 
-midnight=$(date -d "$today 0" +%s)
-log_file=~/logit/logs/$midnight".log"
-
-test -f $log_file || touch $log_file
-echo "logging to "$log_file
+# echo "logging to "$log_file
 
 while true
 do
+    midnight=$(date -d "$today 0" +%s)
+    log_file=~/logit/logs/$midnight".log"
+
+    test -f $log_file || touch $log_file
+    
     current_time=$(date +%s)
     last_log=$(tail -n 1 $log_file || echo "failed")
     

@@ -100,7 +100,7 @@ def main(args):
                     ind_ = event_types.index(event_type)
                     event_type_time[ind_] += duration
 
-            for i, event in enumerate(event_type):
+            for i, event in enumerate(event_types):
                 datasets[i]['data'].append(round(event_type_time[i], 3))
 
     #--------------------------------------save bar_plot data as json-----------------------------
