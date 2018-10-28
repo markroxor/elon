@@ -7,7 +7,7 @@
 while true
 do
     midnight=$(date -d "$today 0" +%s)
-    log_file=~/logit/logs/$midnight".log"
+    log_file=~/elon/logs/$midnight".log"
 
     test -f $log_file || touch $log_file
     

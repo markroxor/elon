@@ -7,7 +7,7 @@ eval "$1='[Unit]\n
 Description=Logit service\n
 \n
 [Service]\n
-Environment=\"DISPLAY=:0\"\n
+Environment=\"DISPLAY=$(echo $DISPLAY)\"\n
 Environment=\"DBUS_SESSION_BUS_ADDRESS=$(echo $DBUS_SESSION_BUS_ADDRESS)\"\n
 User=$(whoami)\n
 ExecStart=/bin/bash /opt/logit.sh\n
