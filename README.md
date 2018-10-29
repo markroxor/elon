@@ -6,7 +6,7 @@ Log your daily routines stay productive.
 ## Installation -
 Dependencies -   
 `sudo apt-get install gnome-screensaver xdotool`    
-`pip3 install pyyaml matplotlib numpy`  
+`pip3 install -r requirements.txt`  
 `sudo apt-get install -y nodejs`  # installs npm
    
 ## Clone in your home directory.
