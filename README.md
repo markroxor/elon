@@ -1,20 +1,26 @@
-# LogIt!
+# elon
 Log your daily routines stay productive.
 
 ![](https://github.com/markroxor/logit/raw/master/assets/graph.jpg)
 
 ## Installation -
-Dependencies -   
-`sudo apt-get install gnome-screensaver xdotool`    
-`pip3 install -r requirements.txt`  
-`sudo apt-get install -y nodejs`  # installs npm
+Dependencies -  
+```shell   
+sudo apt-get install gnome-screensaver xdotool    
+pip3 install -r requirements.txt  
+sudo apt-get install -y nodejs  # installs npm
+```
    
 ## Clone in your home directory.
-`git clone https://github.com/markroxor/logit.git ~/`           
+```shell
+git clone https://github.com/markroxor/logit.git ~/
+```
 
 ## Usage instructions -  
-`cd ~/logit`        
-`cp config_original.yaml config.yaml` # create configuration.
+```shell
+cd ~/logit        
+cp config_original.yaml config.yaml # create configuration.
+```
 
 Configure `config.yaml` as per your preference.    
 1. The applications (Google Chrome) are grouped under categories (browsing).
@@ -31,12 +37,11 @@ here YouTube will take precedence over Google Chrome.
 
 
 ## Pushing as a system service
-`bash create_service.sh` # create service _without root_    
-`sudo bash deploy_service.sh` # to push logit as a system service and start logging at each boot.        
-`python3 get_data.py --time n` # to plot the pie-chart since last `n` days. `--time` is optional.             
-
-
-
+```shell  
+bash create_service.sh # create service _without root_       
+sudo bash deploy_service.sh # to push logit as a system service and start logging at each boot.           
+```
 # Deploy electron app
-
-`python get_data.py --days 10` # to plot the stacked bar plot since last `10` days (`--days` is optional) in an electron app.             
+```shell  
+python get_data.py --days 10 # to plot the stacked bar plot since last `10` days (`--days` is optional) in an electron app.             
+```
