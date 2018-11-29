@@ -1,4 +1,6 @@
 #!/bin/bash
+# install dependencies
+apt install gnome-screensaver xdotool
 
 # deploy the as a system service
 cp logit.service /etc/systemd/system/logit.service

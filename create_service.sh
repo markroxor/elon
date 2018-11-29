@@ -1,4 +1,5 @@
 #!/bin/bash
+mkdir -p logs
 
 #create systemd config
 get_service_conf()
