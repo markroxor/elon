@@ -1,15 +1,15 @@
 #!/bin/bash
 # install dependencies
-apt install gnome-screensaver xdotool
+apt install gnome-screensaver xdotool npm
+npm install
 
 # deploy the as a system service
-cp logit.service /etc/systemd/system/logit.service
-cp logit.sh /opt/
+cp elon.service /etc/systemd/system/elon.service
+cp elon.sh /opt/
 
-chmod u+x /opt/logit.sh
+chmod u+x /opt/elon.sh
 
-systemctl start logit
-systemctl enable logit
+systemctl start elon
+systemctl enable elon
 systemctl daemon-reload
 
-npm install
