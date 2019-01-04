@@ -1,11 +1,19 @@
+# defaults
+__pycache__
 .env
 .vscode/
-backup/
+
+# local data
 logs/*
+backup/
 config.yaml
 elon.service
 static/data.json
-__pycache__
+
+# node
 node_modules
 package-lock.json
+
+# pipenv
 Pipfile
+Pipfile.lock
