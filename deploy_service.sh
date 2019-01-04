@@ -1,7 +1,7 @@
 #!/bin/bash
 # install dependencies
-apt install gnome-screensaver xdotool npm
-npm install
+sudo apt install gnome-screensaver xdotool npm
+sudo npm install
 
 # deploy the as a system service
 cp elon.service /etc/systemd/system/elon.service

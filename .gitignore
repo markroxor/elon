@@ -3,8 +3,9 @@
 backup/
 logs/*
 config.yaml
-logit.service
+elon.service
 static/data.json
 __pycache__
 node_modules
 package-lock.json
+Pipfile

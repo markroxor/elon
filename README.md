@@ -1,7 +1,7 @@
 # elon
 Log your daily routines stay productive.
 
-![](https://github.com/markroxor/logit/raw/master/assets/graph.jpg)
+![](https://github.com/markroxor/elon/raw/master/assets/graph.jpg)
 
 ## Installation -
 Dependencies -  
@@ -13,12 +13,12 @@ sudo apt-get install -y nodejs  # installs npm
    
 ## Clone in your home directory.
 ```shell
-git clone https://github.com/markroxor/logit.git ~/
+git clone https://github.com/markroxor/elon.git ~/
 ```
 
 ## Usage instructions -  
 ```shell
-cd ~/logit        
+cd ~/elon        
 cp config_original.yaml config.yaml # create configuration.
 ```
 
@@ -39,7 +39,7 @@ here YouTube will take precedence over Google Chrome.
 ## Pushing as a system service
 ```shell  
 bash create_service.sh # create service _without root_       
-sudo bash deploy_service.sh # to push logit as a system service and start logging at each boot.           
+sudo bash deploy_service.sh # to push elon as a system service and start logging at each boot.           
 ```
 # Deploy electron app
 ```shell  
