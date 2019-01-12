@@ -6,9 +6,6 @@ from datetime import datetime, timedelta
 
 import argparse
 
-from flask import Flask
-from flask import render_template
-
 import yaml
 import json
 
@@ -19,7 +16,7 @@ def main(args):
 
     if days is None:
         days = 1
-    
+
     if topn is None:
         topn = 5
 
@@ -46,11 +43,9 @@ def main(args):
 
     print("From", datetime.fromtimestamp(log_start_time), "to", datetime.fromtimestamp(log_end_time))
 
-    span = log_end_time - log_start_time
-
-    #-------------------------------------------creating chart.js objects----------------------------------#
+    # -------------------------------------------creating chart.js objects----------------------------------#
     bar_chart_data = {}
-    bar_chart_data["labels"] = [] #
+    bar_chart_data["labels"] = []
     chartColors = ['rgb(255, 99, 132)', 'rgb(201, 203, 207)', 'rgb(255, 159, 64)', 
                     'rgb(255, 205, 86)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)', 'rgb(153, 102, 255)']
 
@@ -60,10 +55,11 @@ def main(args):
         datasets[i]['label'] = event_types[i]
         datasets[i]['backgroundColor'] = chartColors[i]
         datasets[i]['data'] = []
-    #------------------------------------------------------------------------------------------------------#
+    # ------------------------------------------------------------------------------------------------------#
 
     event_and_duration = {}
     for file_ in sorted(os.listdir("logs")):
+        print(file_)
         file_name = float(splitext(file_)[0])
         event_type_time = [0] * len(event_types)
 
@@ -74,14 +70,16 @@ def main(args):
 
             with open(log_dir + file_, 'rb') as f:
                 for i, log in enumerate(f.readlines()):
-                    log = str(log).split(" ")
+                    log = log[:-1]
 
-                    if len(log)==2:
-                        end_time, duration, event = log[0], log[1][:-3], 'Desktop'
+                    if len(log.split()) == 2:
+                        duration, event = log[0], 'Desktop'
                     else:
-                        end_time, duration, event = log[0], log[1], " ".join(log[2:])[:-3]
+                        log = str(log).split(',')[0].split()
+                        # duration, event = log[1], " ".join(log[2:])[:-3]
+                        duration, event = log[1], " ".join(log[2:])
                     event_type = 'Other'
-                    duration = round(float(duration)/3600., 3)
+                    duration = round(float(duration) / 3600., 3)
 
                     if event in event_and_duration:
                         event_and_duration[event] += duration
@@ -96,22 +94,22 @@ def main(args):
 
                         if event_type != 'Other':
                             break
-
+                    # print(event, duration, event_type)
                     ind_ = event_types.index(event_type)
                     event_type_time[ind_] += duration
 
             for i, event in enumerate(event_types):
                 datasets[i]['data'].append(round(event_type_time[i], 3))
 
-    #--------------------------------------save bar_plot data as json-----------------------------
+    # --------------------------------------save bar_plot data as json-----------------------------
     bar_chart_data['datasets'] = datasets
     with open('static/data.json', 'w') as f:
         json.dump(bar_chart_data, f)
-    #--------------------------------------------------------=------------------------------------
+    # --------------------------------------------------------=------------------------------------
 
     print("Top", topn, "most time consuming jobs are -")
     for w in sorted(event_and_duration, key=event_and_duration.get, reverse=True)[:topn]:
-        print (w, event_and_duration[w])
+        print(w, event_and_duration[w])
 
 
 if __name__ == '__main__':

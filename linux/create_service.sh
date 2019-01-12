@@ -1,8 +1,8 @@
 #!/bin/bash
 mkdir -p logs
 
-#create systemd config
-get_service_conf()
+#create systemd config for Linux
+get_service_conf_linux()
 {
 eval "$1='[Unit]\n
 Description=Elon service\n
@@ -19,6 +19,6 @@ WantedBy=multi-user.target'
 }
 
 conf=''
-get_service_conf conf
-# sudo echo -e $conf >/etc/systemd/system/elon.service
+
+get_service_conf_linux conf
 echo -e $conf >elon.service
