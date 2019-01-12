@@ -59,7 +59,6 @@ def main(args):
 
     event_and_duration = {}
     for file_ in sorted(os.listdir("logs")):
-        print(file_)
         file_name = float(splitext(file_)[0])
         event_type_time = [0] * len(event_types)
 
@@ -70,14 +69,12 @@ def main(args):
 
             with open(log_dir + file_, 'rb') as f:
                 for i, log in enumerate(f.readlines()):
-                    log = log[:-1]
+                    log = str(log).split(" ")
 
-                    if len(log.split()) == 2:
-                        duration, event = log[0], 'Desktop'
+                    if len(log) == 2:
+                        end_time, duration, event = log[0], log[1][:-3], 'Desktop'
                     else:
-                        log = str(log).split(',')[0].split()
-                        # duration, event = log[1], " ".join(log[2:])[:-3]
-                        duration, event = log[1], " ".join(log[2:])
+                        end_time, duration, event = log[0], log[1], " ".join(log[2:])[:-3]
                     event_type = 'Other'
                     duration = round(float(duration) / 3600., 3)
 
@@ -94,7 +91,7 @@ def main(args):
 
                         if event_type != 'Other':
                             break
-                    # print(event, duration, event_type)
+                    # print(event_type, event)
                     ind_ = event_types.index(event_type)
                     event_type_time[ind_] += duration
 
