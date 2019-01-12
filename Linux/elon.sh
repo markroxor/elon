@@ -32,5 +32,5 @@ do
     fi
 
     echo $current_time $(($last_counter+1)) $current_event >> $log_file;
-    sleep 1
+    sleep 5
 done
