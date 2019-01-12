@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # install dependencies
 sudo apt install gnome-screensaver xdotool npm
 sudo npm install
