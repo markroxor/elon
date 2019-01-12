@@ -4,13 +4,7 @@ Log your daily routines stay productive.
 ![](https://github.com/markroxor/elon/raw/master/assets/graph.jpg)
 
 ## Installation -
-Dependencies -  
-```shell   
-sudo apt-get install gnome-screensaver xdotool    
-pip3 install -r requirements.txt  
-sudo apt-get install -y nodejs  # installs npm
-```
-   
+ 
 ## Clone in your home directory.
 ```shell
 git clone https://github.com/markroxor/elon.git ~/
@@ -35,9 +29,9 @@ Configure `config.yaml` as per your preference.
 
 here YouTube will take precedence over Google Chrome.
 
-
 ## Pushing as a system service
 ```shell  
+cd $(uname)
 bash create_service.sh # create service _without root_       
 sudo bash deploy_service.sh # to push elon as a system service and start logging at each boot.           
 ```
