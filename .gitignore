@@ -8,7 +8,6 @@ logs/*
 backup/
 config.yaml
 elon.service
-elon.plist
 static/data.json
 
 # node
