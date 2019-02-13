@@ -73,6 +73,7 @@ def main(args):
 
                     if len(log) == 2:
                         end_time, duration, event = log[0], log[1][:-3], 'Desktop'
+                        continue
                     else:
                         end_time, duration, event = log[0], log[1], " ".join(log[2:])[:-3]
                     event_type = 'Other'
@@ -92,8 +93,9 @@ def main(args):
                         if event_type != 'Other':
                             break
                     # print(event_type, event)
-                    ind_ = event_types.index(event_type)
-                    event_type_time[ind_] += duration
+                    if event_type != 'Locked':
+                        ind_ = event_types.index(event_type)
+                        event_type_time[ind_] += duration
 
             for i, event in enumerate(event_types):
                 datasets[i]['data'].append(round(event_type_time[i], 3))
@@ -102,7 +104,7 @@ def main(args):
     bar_chart_data['datasets'] = datasets
     with open('static/data.json', 'w') as f:
         json.dump(bar_chart_data, f)
-    # --------------------------------------------------------=------------------------------------
+    # ---------------------------------------------------------------------------------------------
 
     print("Top", topn, "most time consuming jobs are -")
     for w in sorted(event_and_duration, key=event_and_duration.get, reverse=True)[:topn]:
