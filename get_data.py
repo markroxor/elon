@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 
 import argparse
 
-import yaml
+import oyaml as yaml
 import json
 
 

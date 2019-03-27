@@ -24,4 +24,4 @@ get_service_conf_linux conf
 echo -e $conf >elon.service
 
 # dependencies
-pip install pyyaml --user
+pip install pyyaml oyaml --user
